@@ -1,0 +1,13 @@
+{
+	"comment": "",
+	"ignore": "test",
+	"package": [
+		{
+			"checksumSHA1": "SGOQCjbvpbOC/I76hXessvfhYqY=",
+			"path": "github.com/spf13/cobra",
+			"revision": "b04b5bfc50cbb6c036d2115ed55ea1bccdaf82a9",
+			"revisionTime": "2019-12-02T13:04:30Z"
+		}
+	],
+	"rootPath": "github.com/sahellebusch/raider"
+}
