@@ -23,8 +23,8 @@ package cmd
 
 import (
 	"fmt"
-	alert "github.com/sahellebusch/raider/nr"
 
+	alert "github.com/sahellebusch/raider/nr/alert/get"
 	"github.com/spf13/cobra"
 )
 
