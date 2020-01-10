@@ -24,7 +24,7 @@ package cmd
 import (
 	"fmt"
 
-	alert "github.com/sahellebusch/raider/nr/alert/get"
+	alert "github.com/sahellebusch/raider/newrelic/alert/get"
 	"github.com/spf13/cobra"
 )
 
@@ -42,7 +42,6 @@ func run(cmd *cobra.Command, args []string) {
 	}
 }
 
-// getCmd represents the get command
 var getCmd = &cobra.Command{
 	Use:   "get",
 	Short: "A brief description of your command",
