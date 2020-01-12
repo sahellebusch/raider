@@ -7,9 +7,10 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strconv"
 	"time"
 
-	"github.com/jedib0t/go-pretty/table"
+	table "github.com/olekukonko/tablewriter"
 	"github.com/spf13/viper"
 )
 
@@ -53,16 +54,15 @@ func GetAll() {
 		os.Exit(0)
 	}
 
-	t := table.NewWriter()
-	t.SetOutputMirror(os.Stdout)
-	t.AppendHeader(table.Row{"Id", "Incident Preference", "Created", "Last Updated"})
-
+	table := table.NewWriter(os.Stdout)
 	for _, policy := range allAlerts.Policies {
 		createdAt := time.Unix((policy.CreatedAt / int64(time.Microsecond)), 0)
 		updatedAt := time.Unix((policy.UpdatedAt / int64(time.Microsecond)), 0)
-		t.AppendRow(table.Row{policy.Id, policy.IncidentPreference, createdAt, updatedAt})
-	}
 
-	t.Render()
-	fmt.Println("For more information about alert policy types, visit the link below.\nhttps://docs.newrelic.com/docs/alerts/new-relic-alerts/configuring-alert-policies/specify-when-new-relic-creates-incidents")
+		table.Append([]string{strconv.Itoa(policy.Id), policy.IncidentPreference, createdAt.String(), updatedAt.String()})
+	}
+	table.SetHeader([]string{"Id", "Incident Preference", "Created", "Updated"})
+	table.Render()
+
+	fmt.Println("\nFor more information about alert policy types, visit the link below.\nhttps://docs.newrelic.com/docs/alerts/new-relic-alerts/configuring-alert-policies/specify-when-new-relic-creates-incidents")
 }
