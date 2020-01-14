@@ -23,22 +23,35 @@ package cmd
 
 import (
 	"fmt"
+	"os"
+	"strconv"
 
-	alert "github.com/sahellebusch/raider/newrelic/alert/get"
+	"github.com/sahellebusch/raider/newrelic"
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 var validArgs []string = []string{"alert"}
 var allAlertsFlag bool
 
 func run(cmd *cobra.Command, args []string) {
+
+	newRelic := newrelic.NewNewRelicService(viper.Get("API_KEY").(string), strconv.Itoa(viper.Get("VERSION").(int)))
+
 	err := cobra.OnlyValidArgs(cmd, args)
 	if err != nil {
 		fmt.Println(err)
+		os.Exit(1)
 	}
 
 	if allAlertsFlag {
-		alert.GetAll()
+		alerts, error := newRelic.GetAllAlerts()
+		if error != nil {
+			fmt.Printf("ERROR: %s", error.Error())
+			os.Exit(1)
+		}
+
+		fmt.Println(alerts)
 	}
 }
 
