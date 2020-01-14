@@ -29,6 +29,7 @@ import (
 	"strconv"
 
 	"github.com/sahellebusch/raider/newrelic"
+	"github.com/sahellebusch/raider/writer"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -53,7 +54,8 @@ func run(cmd *cobra.Command, args []string) {
 			os.Exit(1)
 		}
 
-		fmt.Println(alerts)
+		writer := writer.NewPolicyWriter(os.Stdout)
+		writer.WritePolicies(alerts)
 	}
 }
 
