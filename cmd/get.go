@@ -19,6 +19,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
+
+// Package cmd implements the commands for raider.
 package cmd
 
 import (
@@ -36,7 +38,7 @@ var allAlertsFlag bool
 
 func run(cmd *cobra.Command, args []string) {
 
-	newRelic := newrelic.NewNewRelicService(viper.Get("API_KEY").(string), strconv.Itoa(viper.Get("VERSION").(int)))
+	newRelic := newrelic.New(viper.Get("API_KEY").(string), strconv.Itoa(viper.Get("VERSION").(int)))
 
 	err := cobra.OnlyValidArgs(cmd, args)
 	if err != nil {
